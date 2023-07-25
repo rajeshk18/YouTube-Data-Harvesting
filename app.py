@@ -1,5 +1,8 @@
 import pymongo
 
+# SETTING PAGE CONFIG TO WIDE MODE AND ADDING A TITLE AND FAVICON
+st.set_page_config(layout="wide", page_title="NYC Ridesharing Demo", page_icon=":taxi:")
+
 myclient = pymongo.MongoClient("mongodb+srv://arajeshkanna82:r5HSCqyWVxkSQukW@youtubedb.weh8pk8.mongodb.net/?retryWrites=true&w=majority")
 mydb = myclient["youtubedatabase"]
 mycol = mydb["Channel_Name"]
