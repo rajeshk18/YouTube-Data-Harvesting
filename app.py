@@ -44,7 +44,7 @@ mydict = {
 
 # BUILDING CONNECTION WITH YOUTUBE API
 # api_key = "AIzaSyCkglXpsoXo7QjsLDBAL8mzCfX4YZzpdtg"
-api_key = "AIzaSyAO0xwroUQypqQyPpmsKACcv-q4O3Km0sk"
+api_key = "AIzaSyBngTKuDhqqY33i14-jedg0OauDPqXBQp8"
 youtube = build('youtube','v3',developerKey=api_key)
 
 # GET CHANNEL DETAILS
