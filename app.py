@@ -68,5 +68,5 @@ def get_channel_details(channel_id):
 st.markdown("#    ")
 st.write("### Enter YouTube Channel_ID below :")
 ch_id = st.text_input("Hint : Goto channel's home page > Right click > View page source > Find channel_id").split(',')
-ch_details = get_channel_details(ch_id)
+ch_details = get_channel_details("UCduIoIMfD8tT3KoU0-zBRgQ")
 print(ch_details)
