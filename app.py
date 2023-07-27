@@ -43,8 +43,8 @@ mydict = {
 # print(x.inserted_id)
 
 # BUILDING CONNECTION WITH YOUTUBE API
-# api_key = "AIzaSyCkglXpsoXo7QjsLDBAL8mzCfX4YZzpdtg"
-api_key = "AIzaSyBngTKuDhqqY33i14-jedg0OauDPqXBQp8"
+api_key = "AIzaSyCkglXpsoXo7QjsLDBAL8mzCfX4YZzpdtg"
+# api_key = "AIzaSyBngTKuDhqqY33i14-jedg0OauDPqXBQp8"
 youtube = build('youtube','v3',developerKey=api_key)
 
 # GET CHANNEL DETAILS
