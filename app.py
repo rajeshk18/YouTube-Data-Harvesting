@@ -78,7 +78,7 @@ if selected == "Home":
     col2.markdown("#   ")
     col2.markdown("#   ")
     col2.markdown("#   ")
-    col2.image("ylogo526.png")
+    col2.image("https://s3-us-west-2.amazonaws.com/uw-s3-cdn/wp-content/uploads/sites/6/2017/11/04133712/waterfall.jpg")
 
 if selected == "Youtube data":
     st.markdown("#    ")
