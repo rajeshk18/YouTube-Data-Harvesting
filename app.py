@@ -11,26 +11,7 @@ from streamlit_option_menu import option_menu
 from googleapiclient.discovery import build
 from PIL import Image
 
-# SETTING PAGE CONFIG TO WIDE MODE AND ADDING A TITLE AND FAVICON
-icon = Image.open("ylogo32.png")
-st.set_page_config(layout="wide", page_title="Youtube Harvesting | By Rajesh", page_icon=":youtube:", menu_items={'About': """# Demo Project *"""})
 
-# CREATING OPTION MENU
-with st.sidebar:
-    selected = option_menu(None, ["Home","Youtube data","Views"], 
-                           icons=["house-door-fill","tools","card-text"],
-                           default_index=0,
-                           orientation="vertical",
-                           styles={"nav-link": {"font-size": "15px", "text-align": "centre", "margin": "0px", 
-                                                "--hover-color": "#C80101"},
-                                   "icon": {"font-size": "15px"},
-                                   "container" : {"max-width": "6000px"},
-                                   "nav-link-selected": {"background-color": "#C80101"}})
-
-# BUILDING CONNECTION WITH YOUTUBE API
-api_key = "AIzaSyCkglXpsoXo7QjsLDBAL8mzCfX4YZzpdtg"
-# api_key = "AIzaSyBngTKuDhqqY33i14-jedg0OauDPqXBQp8"
-youtube = build('youtube','v3',developerKey=api_key)
 
 # MongoDB connection
 myclient = pymongo.MongoClient("mongodb+srv://arajeshkanna82:r5HSCqyWVxkSQukW@youtubedb.weh8pk8.mongodb.net/?retryWrites=true&w=majority")
@@ -44,6 +25,27 @@ mydict = {
         "Channel_Description": "This is an example channel.",
         "Playlist_Id": "PL1234567890"
 }
+
+# SETTING PAGE CONFIG TO WIDE MODE AND ADDING A TITLE AND FAVICON
+icon = Image.open("ylogo32.png")
+st.set_page_config(layout="wide", page_title="Youtube Harvesting | By Rajesh", page_icon=":youtube:", menu_items={'About': """# Demo Project *"""})
+
+# CREATING OPTION MENU
+with st.sidebar:
+    selected = option_menu(None, ["Home","Extract and Transform","View"], 
+                           icons=["house-door-fill","tools","card-text"],
+                           default_index=0,
+                           orientation="vertical",
+                           styles={"nav-link": {"font-size": "30px", "text-align": "centre", "margin": "0px", 
+                                                "--hover-color": "#C80101"},
+                                   "icon": {"font-size": "30px"},
+                                   "container" : {"max-width": "6000px"},
+                                   "nav-link-selected": {"background-color": "#C80101"}})
+
+# BUILDING CONNECTION WITH YOUTUBE API
+api_key = "AIzaSyCkglXpsoXo7QjsLDBAL8mzCfX4YZzpdtg"
+# api_key = "AIzaSyBngTKuDhqqY33i14-jedg0OauDPqXBQp8"
+youtube = build('youtube','v3',developerKey=api_key)
 
 # Store data in MongoDB
 def post_channel_detail(channel_detail):
