@@ -78,7 +78,7 @@ if selected == "Home":
     col2.markdown("#   ")
     col2.markdown("#   ")
     col2.markdown("#   ")
-    col2.image("https://github.com/rajeshk18/YouTube-Data-Harvesting/blob/main/ylogo526.png")
+    col2.image("https://raw.githubusercontent.com/rajeshk18/YouTube-Data-Harvesting/main/ylogo526.png")
 
 if selected == "Youtube data":
     st.markdown("#    ")
