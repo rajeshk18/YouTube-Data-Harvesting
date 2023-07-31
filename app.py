@@ -17,10 +17,10 @@ st.set_page_config(layout="wide", page_title="Youtube Harvesting | By Rajesh", p
 
 
 # MongoDB connection
-myclient = pymongo.MongoClient("mongodb+srv://arajeshkanna82:r5HSCqyWVxkSQukW@youtubedb.weh8pk8.mongodb.net/?retryWrites=true&w=majority")
-mydb = myclient["youtubedatabase"]
-mycol = mydb["Channel_Name"]
-mydict = {
+mgclient = pymongo.MongoClient("mongodb+srv://arajeshkanna82:r5HSCqyWVxkSQukW@youtubedb.weh8pk8.mongodb.net/?retryWrites=true&w=majority")
+mgdb = mgclient["youtubedatabase"]
+mgcol = mgdb["Channel_Name"]
+mgdict = {
         "Channel_Name": "Example Channel",
         "Channel_Id": "UC1234567890",
         "Subscription_Count": 10000,
@@ -28,6 +28,14 @@ mydict = {
         "Channel_Description": "This is an example channel.",
         "Playlist_Id": "PL1234567890"
 }
+
+# MSSQL Connection
+cnxn_str = ("Driver={SQL Server Native Client 11.0};"
+            "DESKTOP-A8FK5E5\SQLEXPRESS;"
+            "Database=youtube;"
+            "Integrated Security=True;MultipleActiveResultSets=true")
+cnxn = pyodbc.connect(cnxn_str)
+mycursor = cnxn.cursor()
 
 # CREATING OPTION MENU
 with st.sidebar:
@@ -203,13 +211,13 @@ if selected == "Youtube-Data":
                     return com_d
                 comm_details = comments()
 
-                collections1 = db.channel_details
+                collections1 = mgdb.channel_details
                 collections1.insert_many(ch_details)
 
-                collections2 = db.video_details
+                collections2 = mgdb.video_details
                 collections2.insert_many(vid_details)
 
-                collections3 = db.comments_details
+                collections3 = mgdb.comments_details
                 collections3.insert_many(comm_details)
                 st.success("Upload to MogoDB successful !!")
       
@@ -222,39 +230,38 @@ if selected == "Youtube-Data":
         user_inp = st.selectbox("Select channel",options= ch_names)
         
         def insert_into_channels():
-                collections = db.channel_details
+                collections = mgdb.channel_details
                 query = """INSERT INTO channels VALUES(%s,%s,%s,%s,%s,%s,%s,%s)"""
                 
                 for i in collections.find({"Channel_name" : user_inp},{'_id':0}):
                     mycursor.execute(query,tuple(i.values()))
-                    mydb.commit()
+                    cnxn.commit()
                 
         def insert_into_videos():
-            collectionss = db.video_details
+            collectionss = mgdb.video_details
             query1 = """INSERT INTO videos VALUES(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)"""
 
             for i in collectionss.find({"Channel_name" : user_inp},{"_id":0}):
                 t=tuple(i.values())
                 mycursor.execute(query1,t)
-                mydb.commit()
+                cnxn.commit()
 
         def insert_into_comments():
-            collections1 = db.video_details
-            collections2 = db.comments_details
+            collections1 = mgdb.video_details
+            collections2 = mgdb.comments_details
             query2 = """INSERT INTO comments VALUES(%s,%s,%s,%s,%s,%s,%s)"""
 
             for vid in collections1.find({"Channel_name" : user_inp},{'_id' : 0}):
                 for i in collections2.find({'Video_id': vid['Video_id']},{'_id' : 0}):
                     t=tuple(i.values())
                     mycursor.execute(query2,t)
-                    mydb.commit()
+                    cnxn.commit()
 
         if st.button("Submit"):
             try:
-                
                 insert_into_channels()
                 insert_into_videos()
                 insert_into_comments()
-                st.success("Transformation to MySQL Successful!!!")
+                st.success("Transformation to MSSQL Successful!!!")
             except:
                 st.error("Channel details already transformed!!")
