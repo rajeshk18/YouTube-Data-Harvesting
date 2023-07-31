@@ -11,6 +11,9 @@ from streamlit_option_menu import option_menu
 from googleapiclient.discovery import build
 from PIL import Image
 
+# SETTING PAGE CONFIG TO WIDE MODE AND ADDING A TITLE AND FAVICON
+icon = Image.open("https://raw.githubusercontent.com/rajeshk18/YouTube-Data-Harvesting/main/ylogo32.png")
+st.set_page_config(layout="wide", page_title="Youtube Harvesting | By Rajesh", page_icon=":youtube:", menu_items={'About': """# Demo Project *"""})
 
 
 # MongoDB connection
@@ -25,10 +28,6 @@ mydict = {
         "Channel_Description": "This is an example channel.",
         "Playlist_Id": "PL1234567890"
 }
-
-# SETTING PAGE CONFIG TO WIDE MODE AND ADDING A TITLE AND FAVICON
-icon = Image.open("ylogo32.png")
-st.set_page_config(layout="wide", page_title="Youtube Harvesting | By Rajesh", page_icon=":youtube:", menu_items={'About': """# Demo Project *"""})
 
 # CREATING OPTION MENU
 with st.sidebar:
