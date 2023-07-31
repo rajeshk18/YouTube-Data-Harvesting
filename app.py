@@ -195,13 +195,13 @@ if selected == "Youtube-Data":
         ch_id = st.text_input("Hint : Channel Id").split(',')
 
         if ch_id and st.button("Extract Data"):
-            ch_details = get_channel_details(ch_id)
+            ch_details = get_channel_detail(ch_id)
             st.write(f'#### Extracted data from :green["{ch_details[0]["Channel_name"]}"] channel')
             st.table(ch_details)
 
         if st.button("Upload to MongoDB"):
             with st.spinner('Please Wait for it...'):
-                ch_details = get_channel_details(ch_id)
+                ch_details = get_channel_detail(ch_id)
                 v_ids = get_channel_videos(ch_id)
                 vid_details = get_video_details(v_ids)
                 
