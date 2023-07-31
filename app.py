@@ -34,7 +34,7 @@ mgdict = {
 cnxn_str = ("Driver={SQL Server Native Client 11.0};"
             "Server=DESKTOP-A8FK5E5\SQLEXPRESS;"
             "Database=youtube;"
-            "Integrated Security=True;MultipleActiveResultSets=true")
+            "Trusted_Connection=yes;")
 cnxn = pyodbc.connect(cnxn_str)
 mycursor = cnxn.cursor()
 
