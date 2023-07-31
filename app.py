@@ -77,7 +77,7 @@ if selected == "Home":
     col2.markdown("#   ")
     col2.markdown("#   ")
     col2.markdown("#   ")
-    col2.image("youtubeMain.png")
+    col2.image("ylogo526.png")
 
 if selected == "Youtube data":
     st.markdown("#    ")
