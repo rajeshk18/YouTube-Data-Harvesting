@@ -80,8 +80,7 @@ if selected == "Home":
  Option to store the data in a MongoDB database as a data lake.
  Ability to collect data for up to 10 different YouTube channels and store them in the data lake by clicking a button.
  Option to select a channel name and migrate its data from the data lake to a SQL database as tables.
-Ability to search and retrieve data from the SQL database using different search options, including joining tables to get channel details.
-")
+Ability to search and retrieve data from the SQL database using different search options, including joining tables to get channel details."")
     col2.markdown("#   ")
     col2.markdown("#   ")
     col2.markdown("#   ")
