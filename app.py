@@ -32,7 +32,7 @@ st.set_page_config(layout="wide", page_title="Youtube Harvesting | By Rajesh", p
 
 # CREATING OPTION MENU
 with st.sidebar:
-    selected = option_menu(None, ["Home","Youtube Data","Views"], 
+    selected = option_menu(None, ["Home","Youtube-Data","Views"], 
                            icons=["house-door-fill","tools","card-text"],
                            default_index=0,
                            orientation="vertical",
