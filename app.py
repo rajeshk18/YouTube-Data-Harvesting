@@ -12,21 +12,26 @@ from googleapiclient.discovery import build
 from PIL import Image
 
 # SETTING PAGE CONFIG TO WIDE MODE AND ADDING A TITLE AND FAVICON
-icon = Image.open("ylogo.png")
+icon = Image.open("ylogo32.png")
 st.set_page_config(layout="wide", page_title="Youtube Harvesting | By Rajesh", page_icon=":youtube:", menu_items={'About': """# Demo Project *"""})
 
 # CREATING OPTION MENU
 with st.sidebar:
-    selected = option_menu(None, ["Home","Extract and Transform","View"], 
+    selected = option_menu(None, ["Home","Youtube data","Views"], 
                            icons=["house-door-fill","tools","card-text"],
                            default_index=0,
                            orientation="vertical",
-                           styles={"nav-link": {"font-size": "30px", "text-align": "centre", "margin": "0px", 
+                           styles={"nav-link": {"font-size": "15px", "text-align": "centre", "margin": "0px", 
                                                 "--hover-color": "#C80101"},
-                                   "icon": {"font-size": "30px"},
+                                   "icon": {"font-size": "15px"},
                                    "container" : {"max-width": "6000px"},
                                    "nav-link-selected": {"background-color": "#C80101"}})
-        
+
+# BUILDING CONNECTION WITH YOUTUBE API
+api_key = "AIzaSyCkglXpsoXo7QjsLDBAL8mzCfX4YZzpdtg"
+# api_key = "AIzaSyBngTKuDhqqY33i14-jedg0OauDPqXBQp8"
+youtube = build('youtube','v3',developerKey=api_key)
+
 # MongoDB connection
 myclient = pymongo.MongoClient("mongodb+srv://arajeshkanna82:r5HSCqyWVxkSQukW@youtubedb.weh8pk8.mongodb.net/?retryWrites=true&w=majority")
 mydb = myclient["youtubedatabase"]
@@ -40,16 +45,14 @@ mydict = {
         "Playlist_Id": "PL1234567890"
 }
 
-# x = mycol.insert_one(mydict)
-# print(x.inserted_id)
+# Store data in MongoDB
+def post_channel_detail(channel_detail):
+    id = mycol.insert_one(mydict)
+    print(id.inserted_id)
 
-# BUILDING CONNECTION WITH YOUTUBE API
-api_key = "AIzaSyCkglXpsoXo7QjsLDBAL8mzCfX4YZzpdtg"
-# api_key = "AIzaSyBngTKuDhqqY33i14-jedg0OauDPqXBQp8"
-youtube = build('youtube','v3',developerKey=api_key)
 
 # GET CHANNEL DETAILS
-def get_channel_details(channel_id):
+def get_channel_detail(channel_id):
     ch_data = []
     response = youtube.channels().list(part = 'snippet,contentDetails,statistics', id= channel_id).execute()
 
@@ -66,8 +69,20 @@ def get_channel_details(channel_id):
         ch_data.append(data)
     return ch_data
 
-st.markdown("#    ")
-st.write("### Enter YouTube Channel_ID below :")
-ch_id = st.text_input("Hint : Goto channel's home page > Right click > View page source > Find channel_id").split(',')
-ch_details = get_channel_details("UCduIoIMfD8tT3KoU0-zBRgQ")
-print(ch_details)
+if selected == "Home":
+    col1,col2 = st.columns(2,gap= 'medium')
+    col1.markdown("## :blue[Domain] : Social Media")
+    col1.markdown("## :blue[Technologies used] : Python,MongoDB, Youtube Data API, MySql, Streamlit")
+    col1.markdown("## :blue[Overview] : Retrieving the Youtube channels data from the Google API, storing it in a MongoDB as data lake, migrating and transforming data into a SQL database,then querying the data and displaying it in the Streamlit app.")
+    col2.markdown("#   ")
+    col2.markdown("#   ")
+    col2.markdown("#   ")
+    col2.image("youtubeMain.png")
+
+if selected == "Youtube data":
+    st.markdown("#    ")
+    st.write("Please give the Channel ID :")
+    channel_id = st.text_input("Hint : Channel_id")
+    channel_detail = get_channel_detail("UCduIoIMfD8tT3KoU0-zBRgQ")
+    #channel_detail = get_channel_detail(channel_id)
+    print(ch_details)
