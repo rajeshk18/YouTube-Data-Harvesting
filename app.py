@@ -58,7 +58,7 @@ youtube = build('youtube','v3',developerKey=api_key)
 # Store data in MongoDB
 def post_channel_detail(channel_detail):
     id = mycol.insert_one(mydict)
-    print(id.inserted_id)
+    return  id.inserted_id
 
 
 # GET CHANNEL DETAILS
@@ -163,7 +163,7 @@ def get_comments_details(v_id):
 # FUNCTION TO GET CHANNEL NAMES FROM MONGODB
 def channel_names():   
     ch_name = []
-    for i in db.channel_details.find():
+    for i in mgdb.channel_details.find():
         ch_name.append(i['Channel_name'])
     return ch_name
         
