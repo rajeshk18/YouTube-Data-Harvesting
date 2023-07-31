@@ -1,12 +1,12 @@
 import os
 
+import pyodbc
 import altair as alt
 import numpy as np
 import pandas as pd
 import pydeck as pdk
 import streamlit as st
 import pymongo
-import pyodbc
 import plotly.express as px
 from streamlit_option_menu import option_menu
 from googleapiclient.discovery import build
@@ -32,7 +32,7 @@ mgdict = {
 
 # MSSQL Connection
 cnxn_str = ("Driver={SQL Server Native Client 11.0};"
-            "DESKTOP-A8FK5E5\SQLEXPRESS;"
+            "Server=DESKTOP-A8FK5E5\SQLEXPRESS;"
             "Database=youtube;"
             "Integrated Security=True;MultipleActiveResultSets=true")
 cnxn = pyodbc.connect(cnxn_str)
