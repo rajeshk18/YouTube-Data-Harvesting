@@ -12,7 +12,7 @@ from googleapiclient.discovery import build
 from PIL import Image
 
 # SETTING PAGE CONFIG TO WIDE MODE AND ADDING A TITLE AND FAVICON
-# icon = Image.open("https://github.com/rajeshk18/YouTube-Data-Harvesting/blob/main/ylogo32.png")
+icon = Image.open("https://raw.githubusercontent.com/rajeshk18/YouTube-Data-Harvesting/main/ylogo32.png")
 st.set_page_config(layout="wide", page_title="Youtube Harvesting | By Rajesh", page_icon=":youtube:", menu_items={'About': """# Demo Project *"""})
 
 
@@ -35,10 +35,10 @@ with st.sidebar:
                            icons=["house-door-fill","tools","card-text"],
                            default_index=0,
                            orientation="vertical",
-                           styles={"nav-link": {"font-size": "30px", "text-align": "centre", "margin": "0px", 
+                           styles={"nav-link": {"font-size": "15px", "text-align": "centre", "margin": "0px", 
                                                 "--hover-color": "#C80101"},
-                                   "icon": {"font-size": "30px"},
-                                   "container" : {"max-width": "6000px"},
+                                   "icon": {"font-size": "15px"},
+                                   "container" : {"max-width": "2000px"},
                                    "nav-link-selected": {"background-color": "#C80101"}})
 
 # BUILDING CONNECTION WITH YOUTUBE API
@@ -80,7 +80,7 @@ if selected == "Home":
     col2.markdown("#   ")
     col2.image("https://raw.githubusercontent.com/rajeshk18/YouTube-Data-Harvesting/main/ylogo526.png")
 
-if selected == "Youtube data":
+if selected == "Youtube-Data":
     st.markdown("#    ")
     st.write("Please give the Channel ID :")
     channel_id = st.text_input("Hint : Channel_id")
