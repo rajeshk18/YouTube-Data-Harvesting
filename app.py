@@ -234,10 +234,12 @@ if selected == "Youtube-Data":
         # cnxn.commit()
             
         for i in collections.find({"Channel_name" : user_inp},{'_id':0}):
-            st.markdown("#   ")
-            st.markdown(i.values())
-            mycursor.execute(strSql,tuple(i.values()))
-            cnxn.commit()
+            #st.markdown("#   ")
+            #st.markdown(i.values())
+            t=tuple(i.values())
+            st.markdown(t)
+        #mycursor.execute(strSql,t)
+        #cnxn.commit()
         
     def insert_into_videos():
         collectionss = mgdb.video_details
