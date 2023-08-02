@@ -227,6 +227,8 @@ if selected == "Youtube-Data":
 
     def insert_into_channels():
         collections = mgdb.channel_details
+        st.markdown("### channel_details")
+        st.write(collections)
         strSql = """INSERT INTO channel_details VALUES(%s,%s,%s,%s,%s,%s,%s,%s)"""
         
         for i in collections.find({"Channel_name" : user_inp},{'_id':0}):
