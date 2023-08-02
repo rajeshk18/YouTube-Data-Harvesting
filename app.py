@@ -261,5 +261,9 @@ if selected == "Youtube-Data":
             insert_into_videos()
             insert_into_comments()
             st.success("Transformation to MSSQL Successful!!!")
-        except:
-            st.error("Channel details already transformed!!")
+        except OSError as err:
+            st.error("OS error:", err)
+        except ValueError:
+            st.error("OS error:", err)
+        except Exception as err:
+            st.error("Unexpected", err)
