@@ -227,30 +227,30 @@ if selected == "Youtube-Data":
 
     def insert_into_channels():
         collections = mgdb.channel_details
-        query = """INSERT INTO channels VALUES(%s,%s,%s,%s,%s,%s,%s,%s)"""
+        strSql = """INSERT INTO channel_details VALUES(%s,%s,%s,%s,%s,%s,%s,%s)"""
         
         for i in collections.find({"Channel_name" : user_inp},{'_id':0}):
-            mycursor.execute(query,tuple(i.values()))
+            mycursor.execute(strSql,tuple(i.values()))
             cnxn.commit()
         
     def insert_into_videos():
         collectionss = mgdb.video_details
-        query1 = """INSERT INTO videos VALUES(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)"""
+        strSql = """INSERT INTO video_details VALUES(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)"""
 
         for i in collectionss.find({"Channel_name" : user_inp},{"_id":0}):
             t=tuple(i.values())
-            mycursor.execute(query1,t)
+            mycursor.execute(strSql,t)
             cnxn.commit()
 
     def insert_into_comments():
         collections1 = mgdb.video_details
         collections2 = mgdb.comments_details
-        query2 = """INSERT INTO comments VALUES(%s,%s,%s,%s,%s,%s,%s)"""
+        strSql = """INSERT INTO comments_details VALUES(%s,%s,%s,%s,%s,%s,%s)"""
 
         for vid in collections1.find({"Channel_name" : user_inp},{'_id' : 0}):
             for i in collections2.find({'Video_id': vid['Video_id']},{'_id' : 0}):
                 t=tuple(i.values())
-                mycursor.execute(query2,t)
+                mycursor.execute(strSql,t)
                 cnxn.commit()
 
     if st.button("Submit"):
