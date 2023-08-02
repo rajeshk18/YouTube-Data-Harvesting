@@ -169,7 +169,7 @@ def channel_names():
         
 if selected == "Home":
     col1,col2 = st.columns(2,gap= 'medium')
-    col1.markdown("## :red[About App] : A Streamlit application that allows users to access and analyze data from multiple YouTube channels. ")
+    col1.markdown("## :red[About App Vr0.1] : A Streamlit application that allows users to access and analyze data from multiple YouTube channels. ")
     col2.markdown("#   ")
     col2.markdown("#   ")
     col2.markdown("#   ")
