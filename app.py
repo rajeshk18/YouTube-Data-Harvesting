@@ -228,12 +228,15 @@ if selected == "Youtube-Data":
     def insert_into_channels():
         collections = mgdb.channel_details
         st.markdown("### Channel_details-1")
-        strSql = """INSERT INTO channel_details VALUES(%s,%s,%s,%s,%s,%s,%s,%s)"""
-        
-        for i in collections.find({"Channel_name" : user_inp},{'_id':0}):
-            st.markdown(i.values())
-            mycursor.execute(strSql,tuple(i.values()))
-            cnxn.commit()
+        # strSql = """INSERT INTO channel_details VALUES('%s','%s','%s','%s','%s','%s','%s','%s')"""
+        strSql = """INSERT INTO test VALUES('rajesh')"""
+        mycursor.execute(strSql)
+        cnxn.commit()
+            
+        #for i in collections.find({"Channel_name" : user_inp},{'_id':0}):
+        #    st.markdown(i.values())
+        #    mycursor.execute(strSql,tuple(i.values()))
+        #    cnxn.commit()
         
     def insert_into_videos():
         collectionss = mgdb.video_details
@@ -258,8 +261,8 @@ if selected == "Youtube-Data":
     if st.button("Submit"):
         try:
             insert_into_channels()
-            insert_into_videos()
-            insert_into_comments()
+            "insert_into_videos()
+            "insert_into_comments()
             st.success("Transformation to MSSQL Successful!!!")
         except OSError as err:
             st.error("OS error:", err)
