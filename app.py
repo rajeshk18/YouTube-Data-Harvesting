@@ -169,9 +169,7 @@ def channel_names():
         
 if selected == "Home":
     col1,col2 = st.columns(2,gap= 'medium')
-    col1.markdown("## :blue[Domain] : Social Media")
-    col1.markdown("## :blue[Technologies] : Python, Streamlit, MongoDB, Youtube API, Microsoft Sql Server, ")
-    col1.markdown("## :blue[Goal] : A Streamlit application that allows users to access and analyze data from multiple YouTube channels. ")
+    col1.markdown("## :red[About App] : A Streamlit application that allows users to access and analyze data from multiple YouTube channels. ")
     col2.markdown("#   ")
     col2.markdown("#   ")
     col2.markdown("#   ")
@@ -185,84 +183,81 @@ if selected == "Youtube-Data":
     #channel_detail = get_channel_detail(channel_id)
     # st.write(f'#### Extracted data from :green["{ch_details[0]["Channel_name"]}"] channel')
     # st.table(ch_details)
-
-    tab1,tab2 = st.tabs(["$\huge EXTRACT $", "$\huge TRANSFORM $"])
-    
+   
     # EXTRACT TAB
-    with tab1:
-        st.markdown("#    ")
-        st.write("### Enter the YouTube Channel_ID :")
-        ch_id = st.text_input("Hint : Channel Id").split(',')
+    st.markdown("#    ")
+    st.write("### Enter the YouTube Channel Id :")
+    ch_id = st.text_input("Hint : Channel Id").split(',')
 
-        if ch_id and st.button("Extract Data"):
+    if ch_id and st.button("Extract Data"):
+        ch_details = get_channel_detail(ch_id)
+        st.write(f'#### Extracted data from :green["{ch_details[0]["Channel_name"]}"] channel')
+        st.table(ch_details)
+
+    if st.button("Upload to MongoDB"):
+        with st.spinner('Please Wait for it...'):
             ch_details = get_channel_detail(ch_id)
-            st.write(f'#### Extracted data from :green["{ch_details[0]["Channel_name"]}"] channel')
-            st.table(ch_details)
-
-        if st.button("Upload to MongoDB"):
-            with st.spinner('Please Wait for it...'):
-                ch_details = get_channel_detail(ch_id)
-                v_ids = get_channel_videos(ch_id)
-                vid_details = get_video_details(v_ids)
-                
-                def comments():
-                    com_d = []
-                    for i in v_ids:
-                        com_d+= get_comments_details(i)
-                    return com_d
-                comm_details = comments()
-
-                collections1 = mgdb.channel_details
-                collections1.insert_many(ch_details)
-
-                collections2 = mgdb.video_details
-                collections2.insert_many(vid_details)
-
-                collections3 = mgdb.comments_details
-                collections3.insert_many(comm_details)
-                st.success("Upload to MogoDB successful !!")
-      
-    # TRANSFORM TAB
-    with tab2:     
-        st.markdown("#   ")
-        st.markdown("### Select a channel to begin Transformation to SQL")
+            v_ids = get_channel_videos(ch_id)
+            vid_details = get_video_details(v_ids)
         
-        ch_names = channel_names()
-        user_inp = st.selectbox("Select channel",options= ch_names)
-        
-        def insert_into_channels():
-                collections = mgdb.channel_details
-                query = """INSERT INTO channels VALUES(%s,%s,%s,%s,%s,%s,%s,%s)"""
-                
-                for i in collections.find({"Channel_name" : user_inp},{'_id':0}):
-                    mycursor.execute(query,tuple(i.values()))
-                    cnxn.commit()
-                
-        def insert_into_videos():
-            collectionss = mgdb.video_details
-            query1 = """INSERT INTO videos VALUES(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)"""
+            def comments():
+                com_d = []
+                for i in v_ids:
+                    com_d+= get_comments_details(i)
+                return com_d
+            comm_details = comments()
 
-            for i in collectionss.find({"Channel_name" : user_inp},{"_id":0}):
+            collections1 = mgdb.channel_details
+            collections1.insert_many(ch_details)
+
+            collections2 = mgdb.video_details
+            collections2.insert_many(vid_details)
+
+            collections3 = mgdb.comments_details
+            collections3.insert_many(comm_details)
+            st.success("Upload to MogoDB successful !!")
+
+
+    st.markdown("""---""")
+    st.markdown("#   ")
+    st.markdown("### Select a channel to begin Transformation to SQL")
+
+    ch_names = channel_names()
+    user_inp = st.selectbox("Select channel",options= ch_names)
+
+    def insert_into_channels():
+        collections = mgdb.channel_details
+        query = """INSERT INTO channels VALUES(%s,%s,%s,%s,%s,%s,%s,%s)"""
+        
+        for i in collections.find({"Channel_name" : user_inp},{'_id':0}):
+            mycursor.execute(query,tuple(i.values()))
+            cnxn.commit()
+        
+    def insert_into_videos():
+        collectionss = mgdb.video_details
+        query1 = """INSERT INTO videos VALUES(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)"""
+
+        for i in collectionss.find({"Channel_name" : user_inp},{"_id":0}):
+            t=tuple(i.values())
+            mycursor.execute(query1,t)
+            cnxn.commit()
+
+    def insert_into_comments():
+        collections1 = mgdb.video_details
+        collections2 = mgdb.comments_details
+        query2 = """INSERT INTO comments VALUES(%s,%s,%s,%s,%s,%s,%s)"""
+
+        for vid in collections1.find({"Channel_name" : user_inp},{'_id' : 0}):
+            for i in collections2.find({'Video_id': vid['Video_id']},{'_id' : 0}):
                 t=tuple(i.values())
-                mycursor.execute(query1,t)
+                mycursor.execute(query2,t)
                 cnxn.commit()
 
-        def insert_into_comments():
-            collections1 = mgdb.video_details
-            collections2 = mgdb.comments_details
-            query2 = """INSERT INTO comments VALUES(%s,%s,%s,%s,%s,%s,%s)"""
-
-            for vid in collections1.find({"Channel_name" : user_inp},{'_id' : 0}):
-                for i in collections2.find({'Video_id': vid['Video_id']},{'_id' : 0}):
-                    t=tuple(i.values())
-                    mycursor.execute(query2,t)
-                    cnxn.commit()
-
-        if st.button("Submit"):
-            try:
-                insert_into_channels()
-                insert_into_videos()
-                insert_into_comments()
-                st.success("Transformation to MSSQL Successful!!!")
-            except:
-                st.error("Channel details already transformed!!")
+    if st.button("Submit"):
+        try:
+            insert_into_channels()
+            insert_into_videos()
+            insert_into_comments()
+            st.success("Transformation to MSSQL Successful!!!")
+        except:
+            st.error("Channel details already transformed!!")
