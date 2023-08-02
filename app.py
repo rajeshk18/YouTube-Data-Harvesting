@@ -237,7 +237,7 @@ if selected == "Youtube-Data":
             #st.markdown("#   ")
             #st.markdown(i.values())
             t=tuple(i.values())
-            st.markdown(t)
+        st.write(t)
         #mycursor.execute(strSql,t)
         #cnxn.commit()
         
