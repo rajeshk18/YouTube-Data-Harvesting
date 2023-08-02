@@ -240,7 +240,7 @@ if selected == "Youtube-Data":
             t=tuple(i.values())
         st.markdown("#  5 ")
         #st.write(t)
-        mycursor.execute("""INSERT INTO channel_details(Channel_id) VALUES(%s);""",("abc"))
+        mycursor.execute("""INSERT INTO channel_details (Channel_id) VALUES (%s);""",("abc",))
         cnxn.commit()
         
     def insert_into_videos():
