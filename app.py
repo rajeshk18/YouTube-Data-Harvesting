@@ -237,10 +237,10 @@ if selected == "Youtube-Data":
             #st.markdown("#   ")
             #st.markdown(i.values())
             t=tuple(i.values())
-        st.markdown("#  1 ")
-        st.write(t)
-        #mycursor.execute(strSql,t)
-        #cnxn.commit()
+        st.markdown("#  2 ")
+        #st.write(t)
+        mycursor.execute(strSql,t)
+        cnxn.commit()
         
     def insert_into_videos():
         collectionss = mgdb.video_details
