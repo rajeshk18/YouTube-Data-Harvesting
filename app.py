@@ -227,16 +227,16 @@ if selected == "Youtube-Data":
 
     def insert_into_channels():
         collections = mgdb.channel_details
-        st.markdown("### Channel_details-1")
-        # strSql = """INSERT INTO channel_details VALUES('%s','%s','%s','%s','%s','%s','%s','%s')"""
-        strSql = """INSERT INTO test VALUES('rajesh')"""
-        mycursor.execute(strSql)
-        cnxn.commit()
+        # st.markdown("### Channel_details-1")
+        strSql = """INSERT INTO channel_details VALUES('%s','%s','%s','%s','%s','%s','%s','%s')"""
+        # strSql = """INSERT INTO test VALUES('rajesh')"""
+        # mycursor.execute(strSql)
+        # cnxn.commit()
             
-        #for i in collections.find({"Channel_name" : user_inp},{'_id':0}):
+        for i in collections.find({"Channel_name" : user_inp},{'_id':0}):
         #    st.markdown(i.values())
-        #    mycursor.execute(strSql,tuple(i.values()))
-        #    cnxn.commit()
+            mycursor.execute(strSql,tuple(i.values()))
+            cnxn.commit()
         
     def insert_into_videos():
         collectionss = mgdb.video_details
