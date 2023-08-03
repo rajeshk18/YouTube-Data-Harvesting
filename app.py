@@ -237,6 +237,7 @@ if selected == "Youtube-Data":
         # Pass the parameters to the cursor.execute() method.
         
         mycursor.execute(sql)
+        cnxn.commit()
         
         # Fetch the results of the query.
         #results = mycursor.fetchall()
