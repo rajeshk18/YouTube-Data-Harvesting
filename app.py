@@ -231,16 +231,13 @@ if selected == "Youtube-Data":
         collections = mgdb.channel_details
 
         # Create a SQL query with placeholders for the parameters.
-        params = ('rajesh k')
-        sql = "INSERT INTO test (name) VALUES ('%s')" % (params)
-        sql = str(sql)
-        st.write(sql)       
-        mycursor.execute(sql)
+        var1 = 'rajesh k'
+        mycursor.execute("INSERT INTO test (name) VALUES (%s)", (var1,))
         cnxn.commit()
 
-        sql = "INSERT INTO test (name) VALUES ('%s')" % ('rajesh a')
+        sql = "INSERT INTO test (name) VALUES (%s)" 
         st.write(sql)       
-        mycursor.execute(sql)
+        mycursor.execute(sql, ('Rrr',))
         cnxn.commit()
         
         # Fetch the results of the query.
