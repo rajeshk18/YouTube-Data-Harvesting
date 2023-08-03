@@ -231,14 +231,15 @@ if selected == "Youtube-Data":
         # strSql = """INSERT INTO channel_details VALUES('%s','%s','%s','%s','%s','%s','%s','%s')"""
         strSql = """INSERT INTO channel_details(Channel_id) VALUES(%s)"""
         # strSql = """INSERT INTO test VALUES('rajesh')"""
+        mycursor.execute("""INSERT INTO channel_details (Channel_id) VALUES (%s);""",('bar',))
         # mycursor.execute(strSql)
-        # cnxn.commit()
+        cnxn.commit()
             
         for i in collections.find({"Channel_name" : user_inp},{'_id':0}):
             #st.markdown("#   ")
             #st.markdown(i.values())
             t=tuple(i.values())
-        st.markdown("#  6 ")
+        st.markdown("#  1 ")
         #st.write(t)
         mycursor.execute("""INSERT INTO channel_details (Channel_id) VALUES (%s);""",['bar'])
         cnxn.commit()
