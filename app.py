@@ -249,11 +249,10 @@ if selected == "Youtube-Data":
         return
         # st.markdown("### Channel_details-1")
         # strSql = """INSERT INTO channel_details VALUES('%s','%s','%s','%s','%s','%s','%s','%s')"""
-        strSql = "INSERT INTO test VALUES (%s, %s)"
+        strSql = "INSERT INTO test (name) VALUES (%s)"
         # strSql = """INSERT INTO test VALUES('rajesh')"""
-        params = ('John Doe', 50)
+        params = ('John Doe')
         mycursor.execute(strSql, params)
-        # mycursor.execute(strSql)
         cnxn.commit()
         
             
