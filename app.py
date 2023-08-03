@@ -231,10 +231,11 @@ if selected == "Youtube-Data":
         collections = mgdb.channel_details
 
         # Create a SQL query with placeholders for the parameters.
-        sql = "SELECT * FROM test WHERE name = 'rajesh'"
-        
+        params = 'rajesh'
+        sql = "SELECT * FROM test WHERE name = %s" % (params)
+        st.write(sql)
         # Pass the parameters to the cursor.execute() method.
-        params = ('rajesh')
+        
         mycursor.execute(sql)
         
         # Fetch the results of the query.
