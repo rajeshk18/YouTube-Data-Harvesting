@@ -232,7 +232,7 @@ if selected == "Youtube-Data":
 
         # Create a SQL query with placeholders for the parameters.
         var1 = 'rajesh k'
-        mycursor.execute("INSERT INTO test (name) VALUES (%s)", (var1,))
+        mycursor.execute("INSERT INTO test (name) VALUES ('rajesh k')")
         cnxn.commit()
 
         sql = "INSERT INTO test (name) VALUES (%s)" 
