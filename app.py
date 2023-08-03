@@ -42,7 +42,7 @@ mycursor = cnxn.cursor()
 with st.sidebar:
     selected = option_menu(None, ["Home","Youtube-Data","Views"], 
                            icons=["house-door-fill","tools","card-text"],
-                           default_index=0,
+                           default_index=1,
                            orientation="vertical",
                            styles={"nav-link": {"font-size": "15px", "text-align": "centre", "margin": "0px", 
                                                 "--hover-color": "#C80101"},
