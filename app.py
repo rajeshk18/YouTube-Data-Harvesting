@@ -229,11 +229,12 @@ if selected == "Youtube-Data":
         collections = mgdb.channel_details
         # st.markdown("### Channel_details-1")
         # strSql = """INSERT INTO channel_details VALUES('%s','%s','%s','%s','%s','%s','%s','%s')"""
-        strSql = """INSERT INTO channel_details(Channel_id) VALUES(%s)"""
+        strSql = """INSERT INTO channel_details(Channel_id) VALUES(?)"""
         # strSql = """INSERT INTO test VALUES('rajesh')"""
-        mycursor.execute("""INSERT INTO test VALUES (%s);""",('bar',))
+        mycursor.execute("""INSERT INTO test VALUES (?);""",('bar',))
         # mycursor.execute(strSql)
         cnxn.commit()
+        return
             
         for i in collections.find({"Channel_name" : user_inp},{'_id':0}):
             #st.markdown("#   ")
