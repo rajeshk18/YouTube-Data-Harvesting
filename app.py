@@ -231,7 +231,7 @@ if selected == "Youtube-Data":
         collections = mgdb.channel_details
 
         # Create a SQL query with placeholders for the parameters.
-        params = ('rajesh k',50)
+        params = ('rajesh k',51)
         sql = "INSERT INTO test VALUES ('%s', %d)" % (params)
         st.write(sql)
         # Pass the parameters to the cursor.execute() method.
