@@ -225,15 +225,20 @@ if selected == "Youtube-Data":
     ch_names = channel_names()
     user_inp = st.selectbox("Select channel",options= ch_names)
 
-    st.markdown("# 1 ")
+    st.markdown("# 2 ")
 
     def insert_into_channels():
         collections = mgdb.channel_details
 
         # Create a SQL query with placeholders for the parameters.
-        params = ('rajesh k',52)
-        sql = "INSERT INTO test VALUES ('%s', %s)" % (params)
+        params = ('rajesh k')
+        sql = "INSERT INTO test (name) VALUES ('%s')" % (params)
         sql = str(sql)
+        st.write(sql)       
+        mycursor.execute(sql)
+        cnxn.commit()
+
+        sql = "INSERT INTO test (name) VALUES ('%s')" % ('rajesh a')
         st.write(sql)       
         mycursor.execute(sql)
         cnxn.commit()
