@@ -231,7 +231,7 @@ if selected == "Youtube-Data":
         # strSql = """INSERT INTO channel_details VALUES('%s','%s','%s','%s','%s','%s','%s','%s')"""
         strSql = """INSERT INTO channel_details(Channel_id) VALUES(%s)"""
         # strSql = """INSERT INTO test VALUES('rajesh')"""
-        mycursor.execute("""INSERT INTO channel_details (Channel_id) VALUES (%s);""",('bar',))
+        mycursor.execute("""INSERT INTO test VALUES (%s);""",('bar',))
         # mycursor.execute(strSql)
         cnxn.commit()
             
