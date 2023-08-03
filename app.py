@@ -230,6 +230,21 @@ if selected == "Youtube-Data":
     def insert_into_channels():
         collections = mgdb.channel_details
 
+        # Create a SQL query with placeholders for the parameters.
+        sql = "SELECT * FROM test WHERE name = %s"
+        
+        # Pass the parameters to the cursor.execute() method.
+        params = ('rajesh')
+        mycursor.execute(sql, params)
+        
+        # Fetch the results of the query.
+        results = mycursor.fetchall()
+        
+        # Print the results of the query.
+        for row in results:
+            print(row)
+
+        return
         # st.markdown("### Channel_details-1")
         # strSql = """INSERT INTO channel_details VALUES('%s','%s','%s','%s','%s','%s','%s','%s')"""
         strSql = "INSERT INTO test VALUES (%s, %s)"
@@ -238,7 +253,7 @@ if selected == "Youtube-Data":
         mycursor.execute(strSql, params)
         # mycursor.execute(strSql)
         cnxn.commit()
-        return
+        
             
         for i in collections.find({"Channel_name" : user_inp},{'_id':0}):
             #st.markdown("#   ")
