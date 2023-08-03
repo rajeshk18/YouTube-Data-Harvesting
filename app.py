@@ -232,7 +232,7 @@ if selected == "Youtube-Data":
 
         # Create a SQL query with placeholders for the parameters.
         params = ('rajesh k',51)
-        sql = "INSERT INTO test VALUES ('%s', %d)" % (params)
+        sql = "INSERT INTO test VALUES ('%s', %s)" % (params)
         st.write(sql)
         # Pass the parameters to the cursor.execute() method.
         
