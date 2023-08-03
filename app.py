@@ -232,7 +232,7 @@ if selected == "Youtube-Data":
 
         # Create a SQL query with placeholders for the parameters.
         params = 'rajesh'
-        sql = "SELECT * FROM test WHERE name = %s" % (params)
+        sql = "SELECT * FROM test WHERE name = '%s'" % (params)
         st.write(sql)
         # Pass the parameters to the cursor.execute() method.
         
