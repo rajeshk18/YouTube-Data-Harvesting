@@ -225,21 +225,21 @@ if selected == "Youtube-Data":
     ch_names = channel_names()
     user_inp = st.selectbox("Select channel",options= ch_names)
 
-    st.markdown("# 6 ")
+    st.markdown("# 8 ")
 
     def insert_into_channels():
         collections = mgdb.channel_details
 
-        var1 = 'apple'       
-        mycursor.execute("""INSERT INTO test (name) VALUES ('%s')""", (var1,))
-        st.write(var1) 
+        var1 = """INSERT INTO test (name) VALUES ('%s')""" % 'apple'       
+        mycursor.execute(var1)
         cnxn.commit()
+        st.write(var1)
 
         var2 = 'Pooda'
-        sql = """INSERT INTO test (name) VALUES (%s)"""
-        st.write(var2) 
-        mycursor.execute(sql, (var2))
+        sql = """INSERT INTO test (name) VALUES (%s)""" % var2
+        mycursor.execute(sql)
         cnxn.commit()
+        st.write(var2)
         
         # Fetch the results of the query.
         #results = mycursor.fetchall()
