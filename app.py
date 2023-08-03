@@ -234,7 +234,7 @@ if selected == "Youtube-Data":
         params = ('rajesh k',52)
         sql = "INSERT INTO test VALUES ('%s', %s)" % (params)
         st.write(sql)
-        st.write(typeof(sql))
+        st.write(type(sql))
         # Pass the parameters to the cursor.execute() method.
         
         mycursor.execute(sql)
