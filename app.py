@@ -297,7 +297,7 @@ if selected == "Youtube-Data":
 
 # VIEW PAGE
 if selected == "Report & Views":
-    st.write("# :red[Reports & Views 1.63]")
+    st.write("# :red[Reports & Views 1.64]")
     st.write("## :red[Select any question to get Insights]")
     questions = st.selectbox('Questions',
     ['Click the question that you would like to query',
@@ -379,13 +379,24 @@ if selected == "Report & Views":
         st.plotly_chart(fig,use_container_width=True)
         
     elif questions == '4. How many comments were made on each video, and what are their corresponding video names?':
-        cursor.execute("""SELECT a.video_id AS Video_id, a.title AS Video_Title, b.Total_Comments
+        data = cursor.execute("""SELECT a.video_id AS Video_id, a.title AS Video_Title, b.Total_Comments
                             FROM video_details AS a
                             LEFT JOIN (SELECT video_id,COUNT(comment_id) AS Total_Comments
                             FROM comments_details GROUP BY video_id) AS b
                             ON a.video_id = b.video_id
                             ORDER BY b.Total_Comments DESC""")
-        df = pd.DataFrame(cursor.fetchall(),columns=cursor.column_names)
+        columns = [column[0] for column in cursor.description]
+        rows = data.fetchall()
+        col1 = []
+        col2 = []
+        col3 = []
+            
+        for row in rows:
+            col1.append(row[0])
+            col2.append(row[1])
+            col3.append(row[2])
+                    
+        df = pd.DataFrame(list(zip(col1, col2, col3)), columns=columns) #[columns[0],columns[1], columns[2]])
         st.write(df)
           
     elif questions == '5. Which videos have the highest number of likes, and what are their corresponding channel names?':
