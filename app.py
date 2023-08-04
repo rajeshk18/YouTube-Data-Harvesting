@@ -297,7 +297,7 @@ if selected == "Youtube-Data":
 
 # VIEW PAGE
 if selected == "Report & Views":
-    st.write("# :red[Report & Views 1.2]")
+    st.write("# :red[Report & Views 1.3]")
     st.write("## :red[Select any question to get Insights]")
     questions = st.selectbox('Questions',
     ['Click the question that you would like to query',
@@ -321,17 +321,18 @@ if selected == "Report & Views":
         datalist = []
         col1 = []
         col2 = []
-        datalist1 = ['abc','123']
+        std = ['Anurag','bhumika','chriag']
+        rn = ['btr001','btr002','btr003']
+        df = pd.DataFrame(list(zip(std, rn)), columns=['Students', 'Roll Number'])
+        st.dataframe(df)
+            
         for row in rows:
             st.write(row[0])
             #lst.append(row[0])
             col1.append(row[0])
             col2.append(row[1])
             st.write(row[0], row[1])
-        
-        df = pd.DataFrame(datalist1, columns=['Video_Title','a'])
-        st.dataframe(df)
-            
+                    
         st.markdown("""---""")
         df1 = pd.DataFrame(list(zip(col1, col2))) #, columns=['Video_Title','Channel_Name'])
         st.dataframe(df1)
