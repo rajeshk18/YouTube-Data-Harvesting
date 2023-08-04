@@ -42,7 +42,7 @@ mycursor = cnxn.cursor()
 with st.sidebar:
     selected = option_menu(None, ["Home","Youtube-Data","Report & Views"], 
                            icons=["house-door-fill","tools","card-text"],
-                           default_index=1,
+                           default_index=2,
                            orientation="vertical",
                            styles={"nav-link": {"font-size": "15px", "text-align": "centre", "margin": "0px", 
                                                 "--hover-color": "#C80101"},
@@ -314,18 +314,18 @@ if selected == "Report & Views":
     
     if questions == '1. What are the names of all the videos and their corresponding channels?':
         mycursor.execute("""SELECT title AS Video_Title, channel_name AS Channel_Name FROM video_details ORDER BY channel_name""")
-        df = pd.DataFrame(mycursor.fetchall(),columns=mycursor.column_names)
+        columns = [column[0] for column in mycursor.description]
+        results = cursor.fetchall()
+        df = pd.DataFrame(results, columns=columns)
         st.write(df)
         
     elif questions == '2. Which channels have the most number of videos, and how many videos do they have?':
-        mycursor.execute("""SELECT channel_name 
-        AS Channel_Name, total_videos AS Total_Videos
+        mycursor.execute("""SELECT channel_name AS Channel_Name, total_videos AS Total_Videos
                             FROM channel_details
                             ORDER BY total_videos DESC""")
-        df = pd.DataFrame(mycursor.fetchall(),columns=mycursor.column_names)
+        df = pd.DataFrame(mycursor.fetchall())
         st.write(df)
         st.write("### :green[Number of videos in each channel :]")
-        #st.bar_chart(df,x= mycursor.column_names[0],y= mycursor.column_names[1])
         fig = px.bar(df,
                      x=mycursor.column_names[0],
                      y=mycursor.column_names[1],
