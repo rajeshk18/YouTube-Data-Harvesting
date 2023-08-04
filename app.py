@@ -297,7 +297,7 @@ if selected == "Youtube-Data":
 
 # VIEW PAGE
 if selected == "Report & Views":
-    st.write("# :red[Report & Views 1.7]")
+    st.write("# :red[Report & Views 1.8]")
     st.write("## :red[Select any question to get Insights]")
     questions = st.selectbox('Questions',
     ['Click the question that you would like to query',
@@ -317,14 +317,12 @@ if selected == "Report & Views":
         columns = [column[0] for column in cursor.description]
         st.write(columns[0], '\t\t\t',columns[1])
         rows = data.fetchall()
-        st.write(' === rows ===')
-        st.write(rows)
         st.markdown("""---""")
         datalist = []
         for row in rows:
-            #print(row)
-            datalist.append(row[0] + ',' + row[1])
-            # st.write(row[0], row[1])
+            st.write(row[0])
+            datalist.append(row[0])
+            st.write(row[0], row[1])
         st.write(datalist)
         st.markdown("""---""")
         df = pd.DataFrame(datalist)
