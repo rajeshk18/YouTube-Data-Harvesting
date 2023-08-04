@@ -352,10 +352,9 @@ if selected == "Report & Views":
         st.plotly_chart(fig, use_container_width=True)
 
     elif questions == '3. What are the top 10 most viewed videos and their respective channels?':
-        data = cursor.execute("""SELECT channel_name AS Channel_Name, title AS Video_Title, views AS Views 
+        data = cursor.execute("""SELECT TOP 10 channel_name AS Channel_Name, title AS Video_Title, views AS Views 
                             FROM video_details
-                            ORDER BY views DESC
-                            LIMIT 10""")
+                            ORDER BY views DESC""")
         columns = [column[0] for column in cursor.description]
         rows = data.fetchall()
         col1 = []
