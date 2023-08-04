@@ -297,7 +297,7 @@ if selected == "Youtube-Data":
 
 # VIEW PAGE
 if selected == "Report & Views":
-    st.write("# :red[Reports & Views 1.61]")
+    st.write("# :red[Reports & Views 1.62]")
     st.write("## :red[Select any question to get Insights]")
     questions = st.selectbox('Questions',
     ['Click the question that you would like to query',
@@ -328,20 +328,29 @@ if selected == "Report & Views":
         st.dataframe(df)
         
     elif questions == '2. Which channels have the most number of videos, and how many videos do they have?':
-        cursor.execute("""SELECT channel_name AS Channel_Name, total_videos AS Total_Videos
+        data = cursor.execute("""SELECT channel_name AS Channel_Name, total_videos AS Total_Videos
                             FROM channel_details
                             ORDER BY total_videos DESC""")
-        df = pd.DataFrame(cursor.fetchall())
+        columns = [column[0] for column in cursor.description]
+        rows = data.fetchall()
+        col1 = []
+        col2 = []
+            
+        for row in rows:
+            col1.append(row[0])
+            col2.append(row[1])
+                    
+        df = pd.DataFrame(list(zip(col1, col2)), columns=[columns[0],columns[1]])
         st.write(df)
         st.write("### :green[Number of videos in each channel :]")
         fig = px.bar(df,
-                     x=cursor.column_names[0],
-                     y=cursor.column_names[1],
+                     x=columns[0],
+                     y=columns[1],
                      orientation='v',
-                     color=cursor.column_names[0]
+                     color=columns[0]
                     )
-        st.plotly_chart(fig,use_container_width=True)
-        
+        st.plotly_chart(fig, use_container_width=True)
+        st.write(cursor.column_names[0])
     elif questions == '3. What are the top 10 most viewed videos and their respective channels?':
         cursor.execute("""SELECT channel_name AS Channel_Name, title AS Video_Title, views AS Views 
                             FROM video_details
