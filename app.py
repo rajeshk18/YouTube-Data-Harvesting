@@ -297,7 +297,7 @@ if selected == "Youtube-Data":
 
 # VIEW PAGE
 if selected == "Report & Views":
-    st.write("# :red[Reports & Views 1.62]")
+    st.write("# :red[Reports & Views 1.63]")
     st.write("## :red[Select any question to get Insights]")
     questions = st.selectbox('Questions',
     ['Click the question that you would like to query',
@@ -350,20 +350,32 @@ if selected == "Report & Views":
                      color=columns[0]
                     )
         st.plotly_chart(fig, use_container_width=True)
-        st.write(cursor.column_names[0])
+
     elif questions == '3. What are the top 10 most viewed videos and their respective channels?':
-        cursor.execute("""SELECT channel_name AS Channel_Name, title AS Video_Title, views AS Views 
+        data = cursor.execute("""SELECT channel_name AS Channel_Name, title AS Video_Title, views AS Views 
                             FROM video_details
                             ORDER BY views DESC
                             LIMIT 10""")
-        df = pd.DataFrame(cursor.fetchall(),columns=cursor.column_names)
+        columns = [column[0] for column in cursor.description]
+        rows = data.fetchall()
+        col1 = []
+        col2 = []
+        col3 = []
+            
+        for row in rows:
+            col1.append(row[0])
+            col2.append(row[1])
+            col3.append(row[2])
+                    
+        df = pd.DataFrame(list(zip(col1, col2, col3)), columns=columns) #[columns[0],columns[1], columns[2]])
         st.write(df)
+        
         st.write("### :green[Top 10 most viewed videos :]")
         fig = px.bar(df,
-                     x=cursor.column_names[2],
-                     y=cursor.column_names[1],
+                     x=columns[2],
+                     y=columns[1],
                      orientation='h',
-                     color=cursor.column_names[0]
+                     color=columns[0]
                     )
         st.plotly_chart(fig,use_container_width=True)
         
