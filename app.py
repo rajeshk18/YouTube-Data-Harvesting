@@ -297,7 +297,7 @@ if selected == "Youtube-Data":
 
 # VIEW PAGE
 if selected == "Report & Views":
-    st.write("# :orange[Report & Views 1.1]")
+    st.write("# :orange[Report & Views 1.2]")
     st.write("## :orange[Select any question to get Insights]")
     questions = st.selectbox('Questions',
     ['Click the question that you would like to query',
@@ -313,12 +313,18 @@ if selected == "Report & Views":
     '10. Which videos have the highest number of comments, and what are their corresponding channel names?'])
     
     if questions == '1. What are the names of all the videos and their corresponding channels?':
-        cursor.execute("""SELECT title AS Video_Title, channel_name AS Channel_Name FROM video_details ORDER BY channel_name""")
+        data = cursor.execute("""SELECT title AS Video_Title, channel_name AS Channel_Name FROM video_details ORDER BY channel_name""")
         columns = [column[0] for column in cursor.description]
-        st.write(columns)
-        results = cursor.fetchall()
-        df = pd.DataFrame(results)
-        st.write(df)
+        st.write(columns[0])
+        rows = data.fetchall()
+        print('Video Title\t\t\t\t\tChannel Name')
+        print('____________________________________________________________________________________')
+        for row in rows:
+            #print(row)
+            print(f'{row[0].__str__():30s} {row[1]:60s}')
+        print('____________________________________________________________________________________')
+        #df = pd.DataFrame(rows)
+        #st.write(df)
         
     elif questions == '2. Which channels have the most number of videos, and how many videos do they have?':
         cursor.execute("""SELECT channel_name AS Channel_Name, total_videos AS Total_Videos
