@@ -248,8 +248,8 @@ if selected == "Youtube-Data":
             #st.markdown(i.values())
             t=tuple(i.values())
         
-        #st.write(t)
-        sql = """INSERT INTO test (name) VALUES ('%s')""" % t
+        st.write(t)
+        sql = """INSERT INTO channel_details VALUES (%s)""" % t
         st.write(sql)
         #mycursor.execute(sql)
         #cnxn.commit()
