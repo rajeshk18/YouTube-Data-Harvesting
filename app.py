@@ -297,7 +297,7 @@ if selected == "Youtube-Data":
 
 # VIEW PAGE
 if selected == "Report & Views":
-    st.write("# :red[Reports & Views 1.60]")
+    st.write("# :red[Reports & Views 1.61]")
     st.write("## :red[Select any question to get Insights]")
     questions = st.selectbox('Questions',
     ['Click the question that you would like to query',
@@ -315,23 +315,15 @@ if selected == "Report & Views":
     if questions == '1. What are the names of all the videos and their corresponding channels?':
         data = cursor.execute("""SELECT title AS Video_Title, channel_name AS Channel_Name FROM video_details ORDER BY channel_name""")
         columns = [column[0] for column in cursor.description]
-        #st.write(columns[0], '\t\t\t',columns[1])
         rows = data.fetchall()
-        st.markdown("""---""")
         col1 = []
         col2 = []
-        #std = ['Anurag','bhumika','chriag']
-        #rn = ['btr001','btr002','btr003']
-        #st.write('Sample')
-        #df = pd.DataFrame(list(zip(std, rn)), columns=['Students', 'Roll Number'])
-        #st.dataframe(df)
             
         for row in rows:
             col1.append(row[0])
             col2.append(row[1])
             #st.write(row[0], row[1])
                     
-        st.markdown("""---""")
         df = pd.DataFrame(list(zip(col1, col2)), columns=[columns[0],columns[1]])
         st.dataframe(df)
         
