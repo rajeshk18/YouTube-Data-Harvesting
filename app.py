@@ -301,7 +301,7 @@ if selected == "Report & Views":
     st.write("## :red[Select any question to get Insights]")
     questions = st.selectbox('Questions',
     ['Click the question that you would like to query',
-    '1. What are the names of all the videos and their corresponding channels?',
+    '1. List of all the videos and channels',
     '2. Which channels have the most number of videos, and how many videos do they have?',
     '3. What are the top 10 most viewed videos and their respective channels?',
     '4. How many comments were made on each video, and what are their corresponding video names?',
@@ -312,7 +312,7 @@ if selected == "Report & Views":
     '9. What is the average duration of all videos in each channel, and what are their corresponding channel names?',
     '10. Which videos have the highest number of comments, and what are their corresponding channel names?'])
     
-    if questions == '1. What are the names of all the videos and their corresponding channels?':
+    if questions == '1. List of all the videos and channels':
         data = cursor.execute("""SELECT title AS Video_Title, channel_name AS Channel_Name FROM video_details ORDER BY channel_name""")
         columns = [column[0] for column in cursor.description]
         st.write(columns[0], '\t\t\t',columns[1])
