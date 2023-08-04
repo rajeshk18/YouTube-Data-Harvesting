@@ -282,8 +282,8 @@ if selected == "Youtube-Data":
     if st.button("Submit"):
         try:
             insert_into_channels()
-            # insert_into_videos()
-            # insert_into_comments()
+            insert_into_videos()
+            insert_into_comments()
             st.success("Transformation to MSSQL Successful!!!")
         except OSError as err:
             st.error("OS error:", err)
