@@ -225,7 +225,7 @@ if selected == "Youtube-Data":
     ch_names = channel_names()
     user_inp = st.selectbox("Select channel",options= ch_names)
 
-    st.markdown("# 9 ****************  ******************  ******************")
+    st.markdown("#  ****************  1  ******************")
 
     def insert_into_channels():
         collections = mgdb.channel_details
@@ -250,7 +250,8 @@ if selected == "Youtube-Data":
         
         st.write(t)
         sql = """INSERT INTO channel_details  VALUES('%s','%s','%s','%s','%s','%s','%s','%s')""" % t
-        st.write(sql)
+        # st.write(sql)
+        st.write('Channel_name')
         mycursor.execute(sql)
         cnxn.commit()
         return
@@ -260,10 +261,11 @@ if selected == "Youtube-Data":
 
         for i in collectionss.find({"Channel_name" : user_inp},{"_id":0}):
             t=tuple(i.values())
-        sql = """INSERT INTO channel_details  VALUES('%s','%s','%s','%s','%s','%s','%s','%s')""" % t
-        # st.write(sql)
-        mycursor.execute(sql)
-        cnxn.commit()
+                
+        sql = """INSERT INTO videos VALUES('%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s')""" % t
+        st.write(sql)
+        #mycursor.execute(sql)
+        #cnxn.commit()
         return
 
     def insert_into_comments():
@@ -273,10 +275,10 @@ if selected == "Youtube-Data":
         for vid in collections1.find({"Channel_name" : user_inp},{'_id' : 0}):
             for i in collections2.find({'Video_id': vid['Video_id']},{'_id' : 0}):
                 t=tuple(i.values())
-        sql = """INSERT INTO comments_details VALUES(%s,%s,%s,%s,%s,%s,%s)""" % t
-        # st.write(sql)
-        mycursor.execute(sql)
-        cnxn.commit()
+        sql = """INSERT INTO comments_details VALUES('%s','%s','%s','%s','%s','%s','%s')""" % t
+        st.write(sql)
+        #mycursor.execute(sql)
+        #cnxn.commit()
         return
 
     if st.button("Submit"):
