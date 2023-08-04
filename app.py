@@ -224,7 +224,7 @@ if selected == "Youtube-Data":
     ch_names = channel_names()
     user_inp = st.selectbox("Select channel",options= ch_names)
 
-    st.markdown("#  ****************  5  *******************")
+    st.markdown("#  ****************  6  *******************")
 
     def insert_into_channels():
         collections = mgdb.channel_details
@@ -261,7 +261,7 @@ if selected == "Youtube-Data":
         for i in collections.find({"Channel_name" : user_inp},{"_id":0}):
             t=tuple(i.values())
                 
-        sql = """INSERT INTO videos VALUES('%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s')""" % t
+        sql = """INSERT INTO video_details VALUES('%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s')""" % t
         st.write(t)
         mycursor.execute(sql)
         cnxn.commit()
@@ -276,8 +276,8 @@ if selected == "Youtube-Data":
                 t=tuple(i.values())
         sql = """INSERT INTO comments_details VALUES('%s','%s','%s','%s','%s','%s','%s')""" % t
         st.write(sql)
-        #mycursor.execute(sql)
-        #cnxn.commit()
+        mycursor.execute(sql)
+        cnxn.commit()
         return
 
     if st.button("Submit"):
