@@ -225,21 +225,16 @@ if selected == "Youtube-Data":
     ch_names = channel_names()
     user_inp = st.selectbox("Select channel",options= ch_names)
 
-    st.markdown("# 3 ")
+    st.markdown("# 4 ")
 
     def insert_into_channels():
         collections = mgdb.channel_details
-
-        var1 = """INSERT INTO test (name) VALUES ('%s')""" % 'apple'       
-        mycursor.execute(var1)
-        cnxn.commit()
-        st.write(var1)
-
-        var2 = 'Pooda'
-        sql = """INSERT INTO test (name) VALUES ('%s')""" % var2
-        mycursor.execute(sql)
-        cnxn.commit()
-        st.write(var2)
+            
+        #var2 = 'Pooda'
+        #sql = """INSERT INTO test (name) VALUES ('%s')""" % var2
+        #mycursor.execute(sql)
+        #cnxn.commit()
+        #st.write(var2)
         
         # Fetch the results of the query.
         #results = mycursor.fetchall()
@@ -248,24 +243,17 @@ if selected == "Youtube-Data":
         #for row in results:
         #    print(row)
 
-        return
-        # st.markdown("### Channel_details-1")
-        # strSql = """INSERT INTO channel_details VALUES('%s','%s','%s','%s','%s','%s','%s','%s')"""
-        strSql = "INSERT INTO test (name) VALUES (%s)"
-        # strSql = """INSERT INTO test VALUES('rajesh')"""
-        params = ('John Doe')
-        mycursor.execute(strSql, params)
-        cnxn.commit()
-        
-            
         for i in collections.find({"Channel_name" : user_inp},{'_id':0}):
             #st.markdown("#   ")
             #st.markdown(i.values())
             t=tuple(i.values())
         
         #st.write(t)
-        mycursor.execute("""INSERT INTO channel_details (Channel_id) VALUES (%s);""",['bar'])
-        cnxn.commit()
+        sql = """INSERT INTO test (name) VALUES ('%s')""" % t
+        st.write(sql)
+        #mycursor.execute(sql)
+        #cnxn.commit()
+        return
         
     def insert_into_videos():
         collectionss = mgdb.video_details
