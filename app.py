@@ -225,7 +225,7 @@ if selected == "Youtube-Data":
     ch_names = channel_names()
     user_inp = st.selectbox("Select channel",options= ch_names)
 
-    st.markdown("#  ****************  1  ******************")
+    st.markdown("#  ****************  3  ******************")
 
     def insert_into_channels():
         collections = mgdb.channel_details
@@ -260,7 +260,7 @@ if selected == "Youtube-Data":
         collectionss = mgdb.video_details
 
         for i in collectionss.find({"Channel_name" : user_inp},{"_id":0}):
-            t=tuple(i.values())
+            t=tuple(i.values().replace("'","''"))
                 
         sql = """INSERT INTO videos VALUES('%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s')""" % t
         st.write(sql)
