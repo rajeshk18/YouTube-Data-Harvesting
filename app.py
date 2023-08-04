@@ -297,7 +297,7 @@ if selected == "Youtube-Data":
 
 # VIEW PAGE
 if selected == "Report & Views":
-    st.write("# :orange[Report & Views 1.3]")
+    st.write("# :orange[Report & Views 1.4]")
     st.write("## :orange[Select any question to get Insights]")
     questions = st.selectbox('Questions',
     ['Click the question that you would like to query',
@@ -317,6 +317,8 @@ if selected == "Report & Views":
         columns = [column[0] for column in cursor.description]
         st.write(columns[0], ' ',columns[1])
         rows = data.fetchall()
+        st.write(rows)
+        st.write(type(rows))
         st.markdown("""---""")
         for row in rows:
             #print(row)
