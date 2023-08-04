@@ -116,7 +116,6 @@ def get_video_details(v_ids):
                                 Channel_id = video['snippet']['channelId'],
                                 Video_id = video['id'],
                                 Title = video['snippet']['title'],
-                                Tags = video['snippet'].get('tags'),
                                 Thumbnail = video['snippet']['thumbnails']['default']['url'],
                                 Description = video['snippet']['description'],
                                 Published_date = video['snippet']['publishedAt'],
@@ -225,7 +224,7 @@ if selected == "Youtube-Data":
     ch_names = channel_names()
     user_inp = st.selectbox("Select channel",options= ch_names)
 
-    st.markdown("#  ****************  4  *******************")
+    st.markdown("#  ****************  5  *******************")
 
     def insert_into_channels():
         collections = mgdb.channel_details
@@ -257,23 +256,23 @@ if selected == "Youtube-Data":
         return
         
     def insert_into_videos():
-        collectionss = mgdb.video_details
+        collections = mgdb.video_details
 
-        for i in collectionss.find({"Channel_name" : user_inp},{"_id":0}):
-            t=tuple(i.values().replace("'","''"))
+        for i in collections.find({"Channel_name" : user_inp},{"_id":0}):
+            t=tuple(i.values())
                 
-        #sql = """INSERT INTO videos VALUES('%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s')""" % t
+        sql = """INSERT INTO videos VALUES('%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s')""" % t
         st.write(t)
-        #mycursor.execute(sql)
-        #cnxn.commit()
+        mycursor.execute(sql)
+        cnxn.commit()
         return
 
     def insert_into_comments():
-        collections1 = mgdb.video_details
-        collections2 = mgdb.comments_details
+        collectionsV = mgdb.video_details
+        collectionsC = mgdb.comments_details
 
-        for vid in collections1.find({"Channel_name" : user_inp},{'_id' : 0}):
-            for i in collections2.find({'Video_id': vid['Video_id']},{'_id' : 0}):
+        for vid in collectionsV.find({"Channel_name" : user_inp},{'_id' : 0}):
+            for i in collectionsC.find({'Video_id': vid['Video_id']},{'_id' : 0}):
                 t=tuple(i.values())
         sql = """INSERT INTO comments_details VALUES('%s','%s','%s','%s','%s','%s','%s')""" % t
         st.write(sql)
