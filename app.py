@@ -297,7 +297,7 @@ if selected == "Youtube-Data":
 
 # VIEW PAGE
 if selected == "Report & Views":
-    st.write("# :red[Report & Views 1.1]")
+    st.write("# :red[Report & Views 1.2]")
     st.write("## :red[Select any question to get Insights]")
     questions = st.selectbox('Questions',
     ['Click the question that you would like to query',
@@ -328,11 +328,14 @@ if selected == "Report & Views":
             col1.append(row[0])
             col2.append(row[1])
             st.write(row[0], row[1])
-        st.markdown("""---""")
-        df1 = pd.DataFrame(list(zip(col1, col2)), columns==['Video_Title','Channel_Name'])
-        st.dataframe(df1)
-        df = pd.DataFrame(datalist1, columns==['Video_Title'])
+        
+        df = pd.DataFrame(datalist1, columns=['Video_Title','a'])
         st.dataframe(df)
+            
+        st.markdown("""---""")
+        df1 = pd.DataFrame(list(zip(col1, col2))) #, columns=['Video_Title','Channel_Name'])
+        st.dataframe(df1)
+        
         
     elif questions == '2. Which channels have the most number of videos, and how many videos do they have?':
         cursor.execute("""SELECT channel_name AS Channel_Name, total_videos AS Total_Videos
