@@ -297,7 +297,7 @@ if selected == "Youtube-Data":
 
 # VIEW PAGE
 if selected == "Report & Views":
-    st.write("# :red[Report & Views 1.4]")
+    st.write("# :red[Report & Views 1.5]")
     st.write("## :red[Select any question to get Insights]")
     questions = st.selectbox('Questions',
     ['Click the question that you would like to query',
@@ -315,28 +315,25 @@ if selected == "Report & Views":
     if questions == '1. What are the names of all the videos and their corresponding channels?':
         data = cursor.execute("""SELECT title AS Video_Title, channel_name AS Channel_Name FROM video_details ORDER BY channel_name""")
         columns = [column[0] for column in cursor.description]
-        st.write(columns[0], '\t\t\t',columns[1])
+        #st.write(columns[0], '\t\t\t',columns[1])
         rows = data.fetchall()
         st.markdown("""---""")
-        datalist = []
         col1 = []
         col2 = []
-        std = ['Anurag','bhumika','chriag']
-        rn = ['btr001','btr002','btr003']
-        st.write('Sample')
-        df = pd.DataFrame(list(zip(std, rn)), columns=['Students', 'Roll Number'])
-        st.dataframe(df)
+        #std = ['Anurag','bhumika','chriag']
+        #rn = ['btr001','btr002','btr003']
+        #st.write('Sample')
+        #df = pd.DataFrame(list(zip(std, rn)), columns=['Students', 'Roll Number'])
+        #st.dataframe(df)
             
         for row in rows:
-            st.write(row[0])
             col1.append(row[0])
             col2.append(row[1])
-            st.write(row[0], row[1])
+            #st.write(row[0], row[1])
                     
         st.markdown("""---""")
-        df1 = pd.DataFrame(list(zip(col1, col2))) #, columns=['Video_Title','Channel_Name'])
-        st.dataframe(df1)
-        
+        df = pd.DataFrame(list(zip(col1, col2))), columns=[columns[0],columns[1]])
+        st.dataframe(df)
         
     elif questions == '2. Which channels have the most number of videos, and how many videos do they have?':
         cursor.execute("""SELECT channel_name AS Channel_Name, total_videos AS Total_Videos
