@@ -40,7 +40,7 @@ mycursor = cnxn.cursor()
 
 # CREATING OPTION MENU
 with st.sidebar:
-    selected = option_menu(None, ["Home","Youtube-Data","Views"], 
+    selected = option_menu(None, ["Home","Youtube-Data","Report & Views"], 
                            icons=["house-door-fill","tools","card-text"],
                            default_index=1,
                            orientation="vertical",
@@ -296,7 +296,7 @@ if selected == "Youtube-Data":
             st.error("Unexpected", err)
 
 # VIEW PAGE
-if selected == "View":
+if selected == "Report & Views":
     
     st.write("## :orange[Select any question to get Insights]")
     questions = st.selectbox('Questions',
