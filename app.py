@@ -297,11 +297,11 @@ if selected == "Youtube-Data":
 
 # VIEW PAGE
 if selected == "Report & Views":
-    st.write("# :red[Report & Views 1.3]")
+    st.write("# :red[Report & Views 1.4]")
     st.write("## :red[Select any question to get Insights]")
     questions = st.selectbox('Questions',
     ['Click the question that you would like to query',
-    '1. List of all the videos and channels',
+    '1. What are the names of all the videos and their corresponding channels?',
     '2. Which channels have the most number of videos, and how many videos do they have?',
     '3. What are the top 10 most viewed videos and their respective channels?',
     '4. How many comments were made on each video, and what are their corresponding video names?',
@@ -312,7 +312,7 @@ if selected == "Report & Views":
     '9. What is the average duration of all videos in each channel, and what are their corresponding channel names?',
     '10. Which videos have the highest number of comments, and what are their corresponding channel names?'])
     
-    if questions == '1. List of all the videos and channels':
+    if questions == '1. What are the names of all the videos and their corresponding channels?':
         data = cursor.execute("""SELECT title AS Video_Title, channel_name AS Channel_Name FROM video_details ORDER BY channel_name""")
         columns = [column[0] for column in cursor.description]
         st.write(columns[0], '\t\t\t',columns[1])
@@ -323,12 +323,12 @@ if selected == "Report & Views":
         col2 = []
         std = ['Anurag','bhumika','chriag']
         rn = ['btr001','btr002','btr003']
+        st.write('Sample')
         df = pd.DataFrame(list(zip(std, rn)), columns=['Students', 'Roll Number'])
         st.dataframe(df)
             
         for row in rows:
             st.write(row[0])
-            #lst.append(row[0])
             col1.append(row[0])
             col2.append(row[1])
             st.write(row[0], row[1])
