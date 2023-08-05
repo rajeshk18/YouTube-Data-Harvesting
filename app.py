@@ -483,26 +483,7 @@ if selected == "Report & Views":
                     
     elif questions == '9. What is the average duration of all videos in each channel, and what are their corresponding channel names?':
         data = cursor.execute("""SELECT channel_name, 
-                        SUM(duration_sec) / COUNT(*) AS average_duration
-                        FROM (
-                            SELECT channel_name, 
-                            CASE
-                                WHEN duration REGEXP '^PT[0-9]+H[0-9]+M[0-9]+S$' THEN 
-                                TIME_TO_SEC(CONCAT(
-                                SUBSTRING_INDEX(SUBSTRING_INDEX(duration, 'H', 1), 'T', -1), ':',
-                            SUBSTRING_INDEX(SUBSTRING_INDEX(duration, 'M', 1), 'H', -1), ':',
-                            SUBSTRING_INDEX(SUBSTRING_INDEX(duration, 'S', 1), 'M', -1)
-                            ))
-                                WHEN duration REGEXP '^PT[0-9]+M[0-9]+S$' THEN 
-                                TIME_TO_SEC(CONCAT(
-                                '0:', SUBSTRING_INDEX(SUBSTRING_INDEX(duration, 'M', 1), 'T', -1), ':',
-                                SUBSTRING_INDEX(SUBSTRING_INDEX(duration, 'S', 1), 'M', -1)
-                            ))
-                                WHEN duration REGEXP '^PT[0-9]+S$' THEN 
-                                TIME_TO_SEC(CONCAT('0:0:', SUBSTRING_INDEX(SUBSTRING_INDEX(duration, 'S', 1), 'T', -1)))
-                                END AS duration_sec
-                        FROM video_details
-                        ) AS subquery
+                        SUM(TIME_TO_SEC(duration)) / COUNT(*) AS average_duration
                         GROUP BY channel_name""")
         columns = [column[0] for column in cursor.description]
         rows = data.fetchall()
